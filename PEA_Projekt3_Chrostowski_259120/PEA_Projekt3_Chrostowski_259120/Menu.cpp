@@ -16,8 +16,9 @@ void Menu::printStartMenu()
     cout << "3. Wprowadz ograniczenie czasowe" << endl;
     cout << "4. Wprowadz wspolczynnik krzyzowania" << endl;
     cout << "5. Wprowadz wspolczynnik mutacji" << endl;
-    cout << "6. Algorytm Generyczny" << endl;
-    cout << "7. Wyjdz" << endl;
+    cout << "6. Wprowadz wielkosc populacji poczatkowej" << endl;
+    cout << "7. Algorytm Generyczny" << endl;
+    cout << "8. Wyjdz" << endl;
     getInput();
 }
 
@@ -119,11 +120,28 @@ void Menu::getInput()
         }
         printStartMenu();
         break;
+
     case 6:
-        cout << "TUTAJ BEDZIE GENERYCZNY" << endl;
+        cout << "Wybierz wielkosc populacji poczatkowej: ";
+        while (getline(cin, line)) {
+            stringstream ss(line);
+            if (ss >> startPopulationCount)
+            {
+                if (ss.eof())
+                {
+                    break;
+                }
+            }
+            cout << "Niepoprawne Dane. Sproboj ponownie" << endl;
+            cout << "Wybierz wielkosc populacji poczatkowej: ";
+        }
         printStartMenu();
         break;
     case 7:
+        cout << "TUTAJ BEDZIE GENERYCZNY" << endl;
+        printStartMenu();
+        break;
+    case 8:
         clearMenu();
         cout << "Do widzenia" << endl;
         cin.get();

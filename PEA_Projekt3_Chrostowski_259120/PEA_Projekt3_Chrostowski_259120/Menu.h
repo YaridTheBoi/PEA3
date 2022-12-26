@@ -6,6 +6,7 @@ class Menu {
 	double limitTime = 0.0;
 	double crossFactor = 0.8;
 	double mutationFactor = 0.01;
+	int startPopulationCount = 0;
 public:
 
 	/// <summary>
