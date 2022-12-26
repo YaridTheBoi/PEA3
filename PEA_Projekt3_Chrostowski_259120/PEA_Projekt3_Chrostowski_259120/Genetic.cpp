@@ -1,4 +1,5 @@
 #include "Genetic.h"
+#include "Timer.h"
 #include <iostream>
 using namespace std;
 Genetic::Genetic(Graph original)
@@ -74,6 +75,28 @@ void Genetic::scrambleMutation(vector<int>&chromosome, int howManyToScramble )
 	}
 }
 
-void Genetic::solveGenetic(double, double, double, int)
+void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutationFactor, int startPopulationCount)
 {
+
+	if (timeLimit <= 0.0) {
+		cout << "Ograniczenie czasowe posiada niepoprawna wartosc" << endl;
+		return;
+	}
+	if (crossFactor <= 0.0) {
+		cout << "Wspolczynnik krzyzowania posiada niepoprawna wartosc" << endl;
+		return;
+	}
+	if (mutationFactor <= 0.0) {
+		cout << "Wspolczynnik mutacji posiada niepoprawna wartosc" << endl;
+		return;
+	}
+	if (startPopulationCount <= 0.0) {
+		cout << "Rozmiar startowej populacji posiada niepoprawna wartosc" << endl;
+		return;
+	}
+	Timer timer = Timer();	//do sprawdzania czy minal czas w ktorym mozna sobie operowac
+	timer.startCounter();
+	while ((timer.getCounter() < timeLimit * 1000)) {
+	
+	}
 }
