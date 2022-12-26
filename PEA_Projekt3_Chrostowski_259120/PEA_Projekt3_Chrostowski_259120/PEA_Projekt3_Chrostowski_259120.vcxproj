@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Genetic.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PEA_Projekt3_Chrostowski_259120.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Genetic.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Timer.h" />
