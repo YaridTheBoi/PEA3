@@ -14,8 +14,10 @@ void Menu::printStartMenu()
     cout << "1. Zaladuj dane z pliku" << endl;
     cout << "2. Wyswietl wprowadzony graf" << endl;
     cout << "3. Wprowadz ograniczenie czasowe" << endl;
-    cout << "4. Algorytm Generyczny" << endl;
-    cout << "5. Wyjdz" << endl;
+    cout << "4. Wprowadz wspolczynnik krzyzowania" << endl;
+    cout << "5. Wprowadz wspolczynnik mutacji" << endl;
+    cout << "6. Algorytm Generyczny" << endl;
+    cout << "7. Wyjdz" << endl;
     getInput();
 }
 
@@ -83,11 +85,45 @@ void Menu::getInput()
         }
         printStartMenu();
         break;
+
     case 4:
+        cout << "Wybierz wspolczynnik krzyzowania: ";
+        while (getline(cin, line)) {
+            stringstream ss(line);
+            if (ss >> crossFactor)
+            {
+                if (ss.eof())
+                {
+                    break;
+                }
+            }
+            cout << "Niepoprawne Dane. Sproboj ponownie" << endl;
+            cout << "Wybierz wspolczynnik krzyzowania: ";
+        }
+        printStartMenu();
+        break;
+
+    case 5:
+        cout << "Wybierz wspolczynnik mutacji: ";
+        while (getline(cin, line)) {
+            stringstream ss(line);
+            if (ss >> mutationFactor)
+            {
+                if (ss.eof())
+                {
+                    break;
+                }
+            }
+            cout << "Niepoprawne Dane. Sproboj ponownie" << endl;
+            cout << "Wybierz wspolczynnik mutacji: ";
+        }
+        printStartMenu();
+        break;
+    case 6:
         cout << "TUTAJ BEDZIE GENERYCZNY" << endl;
         printStartMenu();
         break;
-    case 5:
+    case 7:
         clearMenu();
         cout << "Do widzenia" << endl;
         cin.get();

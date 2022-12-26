@@ -4,6 +4,8 @@
 class Menu {
 	Graph city = Graph();
 	double limitTime = 0.0;
+	double crossFactor = 0.8;
+	double mutationFactor = 0.01;
 public:
 
 	/// <summary>
