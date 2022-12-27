@@ -11,8 +11,14 @@ int main()
     //Menu m = Menu();
     //m.printStartMenu();
 
+    Graph g = Graph();
+    g.readFromFile("data5.txt");
+    Genetic gen = Genetic(g);
+    gen.printGraph();
 
-    Genetic g = Genetic();
+    gen.solveGenetic(10, 0.8, 0.1, 9);
+
+    /*
     vector<int> p1 = {1, 2, 3, 4, 5, 6, 7};
     vector<int> p2 = {7, 4, 2, 1, 6, 3, 5};
 
@@ -27,6 +33,6 @@ int main()
     for (int i = 0; i < child.size(); i++) {
         cout << child[i] << " ";
     }
-
+    */
 }
 

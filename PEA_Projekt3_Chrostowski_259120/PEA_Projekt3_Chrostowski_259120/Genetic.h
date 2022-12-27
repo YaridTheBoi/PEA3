@@ -15,4 +15,6 @@ public:
 	void scrambleMutation(vector<int>&, int);
 
 	void solveGenetic(double, double, double, int);
+
+
 };

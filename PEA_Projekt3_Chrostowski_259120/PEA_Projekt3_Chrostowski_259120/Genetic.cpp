@@ -1,6 +1,8 @@
 #include "Genetic.h"
 #include "Timer.h"
 #include <iostream>
+#include <random>
+#include <algorithm>
 using namespace std;
 Genetic::Genetic(Graph original)
 {
@@ -94,9 +96,80 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 		cout << "Rozmiar startowej populacji posiada niepoprawna wartosc" << endl;
 		return;
 	}
+
+	vector<int> chromosome;
+	vector<vector<int>> population;
+
+	//stworz startowe miasto
+	for (int i = 0; i < this->size; i++) {
+		chromosome.push_back(i);
+	}
+
+	//stworz startowa populacje
+	for (int i = 0; i < startPopulationCount; i++) {
+		random_shuffle(chromosome.begin() + 1, chromosome.end() );
+		population.push_back(chromosome);
+	}
+
+	cout << "przed posortowaniem" << endl;
+	for (int i = 0; i < population.size(); i++) {
+		for (int j = 0; j < this->size; j++) {
+			cout << population[i][j] << " ";
+		}
+		cout << "len: " << calculatePathLength(population[i]);
+		cout << endl;
+	}
+
+	//sortujemy populacje
+	sort(population.begin(), population.end(),
+		[this](const std::vector<int>& a, const std::vector<int>& b) {
+			return calculatePathLength(a) < calculatePathLength(b);
+		});
+
+
+	cout << endl<<"po posortowaniu" << endl;
+	for (int i = 0; i < population.size(); i++) {
+		for (int j = 0; j < this->size; j++) {
+			cout << population[i][j] << " ";
+		}
+		cout << "len: " << calculatePathLength(population[i]);
+		cout << endl;
+	}
+
+	vector<vector<int>> offsprings;
 	Timer timer = Timer();	//do sprawdzania czy minal czas w ktorym mozna sobie operowac
 	timer.startCounter();
 	while ((timer.getCounter() < timeLimit * 1000)) {
-	
+
+
+		cout << endl;
+		//sortujemy nasza populacje bo zrobimy dobor elitarny
+		sort(population.begin(), population.end(),
+			[this](const std::vector<int>& a, const std::vector<int>& b) {
+				return calculatePathLength(a) < calculatePathLength(b);
+			});
+
+		//czyscimy dzieci z poprzedniej iteracji
+		offsprings.clear();
+
+		for (int i = 0; i < startPopulationCount - 1; i = i + 2) {
+
+			//rozmnazamy i dodajemy dzieci do zbioru dzieci
+			offsprings.push_back(orderCrossover(population[i], population[i + 1]));
+			offsprings.push_back(orderCrossover(population[i+1], population[i]));
+		}
+
+		if (startPopulationCount % 2 != 0) {
+
+			//jezeli jest nieparzysta populacja to najgorszego skrzyzuj z przedostatnim
+			offsprings.push_back(orderCrossover(population[startPopulationCount-1], population[startPopulationCount-2]));
+			offsprings.push_back(orderCrossover(population[startPopulationCount - 2], population[startPopulationCount - 1]));
+		}
+
+
+
 	}
+	cout << "Uplynelo " << timer.getCounter()/1000 << " s" << endl;
 }
+
+
