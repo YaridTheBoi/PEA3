@@ -16,7 +16,7 @@ int main()
     Genetic gen = Genetic(g);
     gen.printGraph();
 
-    gen.solveGenetic(10, 0.8, 0.1, 9);
+    gen.solveGenetic(10, 0.8, 0.01, 9);
 
     /*
     vector<int> p1 = {1, 2, 3, 4, 5, 6, 7};
