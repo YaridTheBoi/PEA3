@@ -65,7 +65,7 @@ vector<int> Genetic::orderCrossover(vector<int> parent1, vector<int> parent2)
 
 void Genetic::scrambleMutation(vector<int>&chromosome, int howManyToScramble )
 {
-	cout << "Mutuje" << endl;
+	//cout << "Mutuje" << endl;
 	vector<int> vertexesToSwap;
 	for (int i = 0; i < howManyToScramble; i++) {
 		vertexesToSwap.push_back(rand()%(chromosome.size()));
@@ -114,83 +114,20 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 		population.push_back(chromosome);
 	}
 
-	cout << "przed posortowaniem" << endl;
-	for (int i = 0; i < population.size(); i++) {
-		for (int j = 0; j < this->size; j++) {
-			cout << population[i][j] << " ";
-		}
-		cout << "len: " << calculatePathLength(population[i]);
-		cout << endl;
-	}
-
 	//sortujemy populacje
 	sort(population.begin(), population.end(),
 		[this](const std::vector<int>& a, const std::vector<int>& b) {
 			return calculatePathLength(a) < calculatePathLength(b);
 		});
 
-
-	cout << endl<<"po posortowaniu" << endl;
-	for (int i = 0; i < population.size(); i++) {
-		for (int j = 0; j < this->size; j++) {
-			cout << population[i][j] << " ";
-		}
-		cout << "len: " << calculatePathLength(population[i]);
-		cout << endl;
-	}
-
 	vector<vector<int>> offsprings;
 
 
-	/*
-
-	//testowe czy sie nie robia nielegalne dzieci
-
-	cout << endl;
-	//sortujemy nasza populacje bo zrobimy dobor elitarny
-	sort(population.begin(), population.end(),
-		[this](const std::vector<int>& a, const std::vector<int>& b) {
-			return calculatePathLength(a) < calculatePathLength(b);
-		});
-
-	//czyscimy dzieci z poprzedniej iteracji
-	offsprings.clear();
-
-	for (int i = 0; i < startPopulationCount - 1; i = i + 2) {
-
-		//rozmnazamy i dodajemy dzieci do zbioru dzieci
-		offsprings.push_back(orderCrossover(population[i], population[i + 1]));
-		offsprings.push_back(orderCrossover(population[i + 1], population[i]));
-	}
-
-	if (startPopulationCount % 2 != 0) {
-
-		//jezeli jest nieparzysta populacja to najgorszego skrzyzuj z przedostatnim
-		offsprings.push_back(orderCrossover(population[startPopulationCount - 1], population[startPopulationCount - 2]));
-		offsprings.push_back(orderCrossover(population[startPopulationCount - 2], population[startPopulationCount - 1]));
-	}
-
-
-	cout << endl << "dzieci" << endl;
-	for (int i = 0; i < offsprings.size(); i++) {
-		for (int j = 0; j < this->size; j++) {
-			cout << offsprings[i][j] << " ";
-		}
-		cout << "len: " << calculatePathLength(offsprings[i]);
-		cout << endl;
-	}
-	*/
 
 	Timer timer = Timer();	//do sprawdzania czy minal czas w ktorym mozna sobie operowac
 	timer.startCounter();
 	while ((timer.getCounter() < timeLimit * 1000)) {
 
-		//cout << endl;
-		//sortujemy nasza populacje bo zrobimy dobor elitarny
-		sort(population.begin(), population.end(),
-			[this](const std::vector<int>& a, const std::vector<int>& b) {
-				return calculatePathLength(a) < calculatePathLength(b);
-			});
 
 		//czyscimy dzieci z poprzedniej iteracji
 		offsprings.clear();
@@ -220,28 +157,164 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 
 
 		//przemieszaj dzieci zeby przy usuwaniu ich losowe ginely
-
 		random_shuffle(offsprings.begin(), offsprings.end());
 
-
-
 		//skasuj tyle dzieci zeby bylo ze ktores sie nie urodzily
-		offsprings.resize(offsprings.size() * crossFactor);
+		offsprings.resize((int)(offsprings.size() * crossFactor));
 
-		population.resize(population.size() + offsprings.size());
-		population.insert(population.end(), offsprings.begin(), offsprings.end());
 
+		for (int i = 0; i < offsprings.size(); i++) {
+			population.push_back(offsprings[i]);
+		}
+
+
+		//posortuj populacje
 		sort(population.begin(), population.end(),
-			[this](const std::vector<int>& a, const std::vector<int>& b) {
+			[this](const vector<int>& a, const vector<int>& b) {
 				return calculatePathLength(a) < calculatePathLength(b);
 			});
 
-
+		//zostaw tylko najlepsze osobniki
 		population.resize(startPopulationCount);
 
 	}
 
 	cout << "Uplynelo " << timer.getCounter()/1000 << " s" << endl;
+
+
+
+	cout << endl << "Najlepsza znaleziona trasa to: " << endl;
+	
+	for (int j = 0; j < this->size; j++) {
+		cout << population[0][j] << "-";
+	}
+	cout << population[0][0]<<endl;
+	cout << "Dlugosc znalezionej trasy: " << calculatePathLength(population[0])<<endl;
+	
+	
+
+
 }
+
+void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double mutationFactor, int startPopulationCount, int interval, ofstream& file)
+{
+	srand(time(0));
+
+	if (timeLimit <= 0.0) {
+		
+		return;
+	}
+	if (crossFactor <= 0.0) {
+	
+		return;
+	}
+	if (mutationFactor <= 0.0) {
+
+		return;
+	}
+	if (startPopulationCount <= 0.0) {
+		return;
+	}
+
+	vector<int> chromosome;
+	vector<vector<int>> population;
+
+	//stworz startowe miasto
+	for (int i = 0; i < this->size; i++) {
+		chromosome.push_back(i);
+	}
+
+	//stworz startowa populacje
+	for (int i = 0; i < startPopulationCount; i++) {
+		random_shuffle(chromosome.begin() + 1, chromosome.end());
+		population.push_back(chromosome);
+	}
+
+	//sortujemy populacje
+	sort(population.begin(), population.end(),
+		[this](const std::vector<int>& a, const std::vector<int>& b) {
+			return calculatePathLength(a) < calculatePathLength(b);
+		});
+
+	vector<vector<int>> offsprings;
+
+	// okresla w jakiej probce juz pobralismy pomiar(kilka iteracji moglo dac tkai sam czas przez zaokraglenia)
+	int timeStamp = 0;
+
+	//przed zaczeciem algorytmu
+	file << calculatePathLength(population[0]) << "\t";
+
+	Timer timer = Timer();	//do sprawdzania czy minal czas w ktorym mozna sobie operowac
+	timer.startCounter();
+	while ((timer.getCounter() < timeLimit * 1000)) {
+
+		if ((int)(timer.getCounter() / 1000) % (interval) == 0) {
+
+			//pobierz probke co interwal
+			if (timeStamp != (int)(timer.getCounter() / (1000)) && (int)(timer.getCounter() / (1000)) % interval == 0 && (int)(timer.getCounter() / (1000)) != timeLimit) {
+				timeStamp = (int)(timer.getCounter() / (1000));
+				file << calculatePathLength(population[0]) << "\t";
+			}
+		}
+
+		//czyscimy dzieci z poprzedniej iteracji
+		offsprings.clear();
+
+		for (int i = 0; i < startPopulationCount - 1; i = i + 2) {
+
+			//rozmnazamy i dodajemy dzieci do zbioru dzieci
+			offsprings.push_back(orderCrossover(population[i], population[i + 1]));
+			offsprings.push_back(orderCrossover(population[i + 1], population[i]));
+		}
+
+		if (startPopulationCount % 2 != 0) {
+
+			//jezeli jest nieparzysta populacja to najgorszego skrzyzuj z przedostatnim
+			offsprings.push_back(orderCrossover(population[startPopulationCount - 1], population[startPopulationCount - 2]));
+			offsprings.push_back(orderCrossover(population[startPopulationCount - 2], population[startPopulationCount - 1]));
+		}
+
+
+
+		//mutacje na dzieci
+		for (int i = 0; i < offsprings.size(); i++) {
+			if (((float)rand() / RAND_MAX) < mutationFactor) {
+				scrambleMutation(offsprings[i], offsprings[i].size() / 3);
+			}
+		}
+
+
+		//przemieszaj dzieci zeby przy usuwaniu ich losowe ginely
+		random_shuffle(offsprings.begin(), offsprings.end());
+
+		//skasuj tyle dzieci zeby bylo ze ktores sie nie urodzily
+		offsprings.resize((int)(offsprings.size() * crossFactor));
+
+
+		for (int i = 0; i < offsprings.size(); i++) {
+			population.push_back(offsprings[i]);
+		}
+
+
+		//posortuj populacje
+		sort(population.begin(), population.end(),
+			[this](const vector<int>& a, const vector<int>& b) {
+				return calculatePathLength(a) < calculatePathLength(b);
+			});
+
+		//zostaw tylko najlepsze osobniki
+		population.resize(startPopulationCount);
+
+	}
+
+	//po skonczeniu algorytmu
+	file << calculatePathLength(population[0]) << endl;
+
+
+
+
+
+}
+
 
 

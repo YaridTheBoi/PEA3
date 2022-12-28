@@ -152,7 +152,10 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="data34.txt" />
     <Text Include="data5.txt" />
+    <Text Include="data53.txt" />
+    <Text Include="data71.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

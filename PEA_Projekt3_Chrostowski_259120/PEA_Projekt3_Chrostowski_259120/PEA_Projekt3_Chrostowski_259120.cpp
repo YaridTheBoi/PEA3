@@ -6,33 +6,63 @@
 #include <vector>
 
 using namespace std;
+
+void testGenetic(int repeats, string filename, string tesFileName, int timeLimit, int interval, double crossFactor, double mutationFactor, int startPopulationCount) {
+    ofstream MyFile;
+    Graph g = Graph();
+    g.readFromFile(tesFileName);
+    Genetic genetic = Genetic(g);
+
+    MyFile.open(filename.c_str());
+    if (MyFile.is_open()) {
+        for (int i = 0; i < repeats; i++) {
+            genetic.solveGeneticTest(timeLimit,crossFactor, mutationFactor, startPopulationCount, interval, MyFile );
+            cout << "Dla Genetic test " << i + 1 << " zakonczyl sie" << endl;
+        }
+        MyFile.close();
+    }
+    else {
+        cout << "Jestem niedzialajacy" << endl;
+    }
+
+
+}
+
+
+
+
+
+
+
 int main()
 {
-    //Menu m = Menu();
-    //m.printStartMenu();
+    Menu m = Menu();
+    m.printStartMenu();
 
-    Graph g = Graph();
-    g.readFromFile("data5.txt");
-    Genetic gen = Genetic(g);
-    gen.printGraph();
-
-    gen.solveGenetic(10, 0.8, 0.01, 9);
 
     /*
-    vector<int> p1 = {1, 2, 3, 4, 5, 6, 7};
-    vector<int> p2 = {7, 4, 2, 1, 6, 3, 5};
+    string plikWynik, plikDane;
+    int repeats, timeLimit, interval;
+    int startPopulation = 100000;
+    double mutationFactor = 0.01;
+    double crossFactor = 0.8;
+    cout << "Podaj nazwe pliku docelowego: ";
+    cin >> plikWynik;
 
-    vector <int>child= g.orderCrossover(p1, p2);
 
-    for (int i = 0; i < child.size(); i++) {
-        cout << child[i] << " ";
-    }
+    cout << endl << "Podaj nazwe pliku zrodlowego: ";
+    cin >> plikDane;
 
-    g.scrambleMutation(child, 3);
-    cout << endl;
-    for (int i = 0; i < child.size(); i++) {
-        cout << child[i] << " ";
-    }
+    cout << endl << "Czas trwania testu: ";
+    cin >> timeLimit;
+
+    cout << endl << "Co ile pobierac probke: ";
+    cin >> interval;
+
+    cout << endl << "Powtorzen: ";
+    cin >> repeats;
+
+    testGenetic(repeats, plikWynik, plikDane, timeLimit, interval, crossFactor, mutationFactor, startPopulation);
     */
 }
 

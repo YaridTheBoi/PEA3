@@ -49,5 +49,14 @@
     <Text Include="data5.txt">
       <Filter>Pliki źródłowe</Filter>
     </Text>
+    <Text Include="data53.txt">
+      <Filter>Pliki źródłowe</Filter>
+    </Text>
+    <Text Include="data34.txt">
+      <Filter>Pliki źródłowe</Filter>
+    </Text>
+    <Text Include="data71.txt">
+      <Filter>Pliki źródłowe</Filter>
+    </Text>
   </ItemGroup>
 </Project>

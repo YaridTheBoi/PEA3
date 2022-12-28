@@ -16,5 +16,6 @@ public:
 
 	void solveGenetic(double, double, double, int);
 
+	void solveGeneticTest(double, double, double, int, int, ofstream&);
 
 };

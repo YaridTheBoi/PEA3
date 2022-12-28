@@ -1,8 +1,9 @@
 #pragma once
 #include "Graph.h"
-
+#include "Genetic.h"
 class Menu {
 	Graph city = Graph();
+	Genetic genetic = Genetic();
 	double limitTime = 0.0;
 	double crossFactor = 0.8;
 	double mutationFactor = 0.01;

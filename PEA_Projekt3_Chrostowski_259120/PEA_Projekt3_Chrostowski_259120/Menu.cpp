@@ -138,7 +138,8 @@ void Menu::getInput()
         printStartMenu();
         break;
     case 7:
-        cout << "TUTAJ BEDZIE GENERYCZNY" << endl;
+        genetic = Genetic(city);
+        genetic.solveGenetic(limitTime, crossFactor, mutationFactor, startPopulationCount);
         printStartMenu();
         break;
     case 8:
