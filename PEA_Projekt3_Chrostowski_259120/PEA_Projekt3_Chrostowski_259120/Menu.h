@@ -8,6 +8,7 @@ class Menu {
 	double crossFactor = 0.8;
 	double mutationFactor = 0.01;
 	int startPopulationCount = 0;
+	bool useScramble = true;
 public:
 
 	/// <summary>

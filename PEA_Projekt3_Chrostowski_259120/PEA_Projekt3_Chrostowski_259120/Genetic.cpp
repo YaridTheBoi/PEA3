@@ -65,6 +65,7 @@ vector<int> Genetic::orderCrossover(vector<int> parent1, vector<int> parent2)
 
 void Genetic::scrambleMutation(vector<int>&chromosome, int howManyToScramble )
 {
+	srand(time(NULL));
 	//cout << "Mutuje" << endl;
 	vector<int> vertexesToSwap;
 	for (int i = 0; i < howManyToScramble; i++) {
@@ -78,7 +79,19 @@ void Genetic::scrambleMutation(vector<int>&chromosome, int howManyToScramble )
 	}
 }
 
-void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutationFactor, int startPopulationCount)
+void Genetic::inverseMutation(vector<int>& chromosome)
+{
+	srand(time(NULL));
+	int startIndex = rand() % chromosome.size();
+	int endIndex = rand() % chromosome.size();
+
+	if (startIndex > endIndex) {
+		swap(startIndex, endIndex);
+	}
+	reverse(chromosome.begin() + startIndex, chromosome.end() - endIndex);
+}
+
+void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutationFactor, int startPopulationCount, bool useScramble)
 {
 
 	srand(time(0));
@@ -116,7 +129,7 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 
 	//sortujemy populacje
 	sort(population.begin(), population.end(),
-		[this](const std::vector<int>& a, const std::vector<int>& b) {
+		[this](const vector<int>& a, const vector<int>& b) {
 			return calculatePathLength(a) < calculatePathLength(b);
 		});
 
@@ -151,12 +164,19 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 		//mutacje na dzieci
 		for (int i = 0; i < offsprings.size(); i++) {
 			if (((float)rand() / RAND_MAX) < mutationFactor) {
-				scrambleMutation(offsprings[i], offsprings[i].size() / 3);
+
+				if (useScramble) {
+					scrambleMutation(offsprings[i], offsprings[i].size() / 3);
+				}
+				else {
+					inverseMutation(offsprings[i]);
+				}
+				
 			}
 		}
 
 
-		//przemieszaj dzieci zeby przy usuwaniu ich losowe ginely
+		//przemieszaj dzieci zeby przy usuwaniu ich losowe ginely to chyba bardzo spowalnia
 		random_shuffle(offsprings.begin(), offsprings.end());
 
 		//skasuj tyle dzieci zeby bylo ze ktores sie nie urodzily
@@ -196,7 +216,7 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 
 }
 
-void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double mutationFactor, int startPopulationCount, int interval, ofstream& file)
+void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double mutationFactor, int startPopulationCount, bool useScramble, int interval, ofstream& file)
 {
 	srand(time(0));
 
@@ -232,7 +252,7 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 
 	//sortujemy populacje
 	sort(population.begin(), population.end(),
-		[this](const std::vector<int>& a, const std::vector<int>& b) {
+		[this](const vector<int>& a, const vector<int>& b) {
 			return calculatePathLength(a) < calculatePathLength(b);
 		});
 
@@ -279,7 +299,12 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 		//mutacje na dzieci
 		for (int i = 0; i < offsprings.size(); i++) {
 			if (((float)rand() / RAND_MAX) < mutationFactor) {
-				scrambleMutation(offsprings[i], offsprings[i].size() / 3);
+				if (useScramble) {
+					scrambleMutation(offsprings[i], offsprings[i].size() / 3);
+				}
+				else {
+					inverseMutation(offsprings[i]);
+				}
 			}
 		}
 

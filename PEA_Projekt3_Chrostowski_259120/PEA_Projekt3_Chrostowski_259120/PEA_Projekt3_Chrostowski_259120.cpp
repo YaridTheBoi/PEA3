@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void testGenetic(int repeats, string filename, string tesFileName, int timeLimit, int interval, double crossFactor, double mutationFactor, int startPopulationCount) {
+void testGenetic(int repeats, string filename, string tesFileName, int timeLimit, int interval, double crossFactor, double mutationFactor, int startPopulationCount, bool useScramble) {
     ofstream MyFile;
     Graph g = Graph();
     g.readFromFile(tesFileName);
@@ -16,7 +16,7 @@ void testGenetic(int repeats, string filename, string tesFileName, int timeLimit
     MyFile.open(filename.c_str());
     if (MyFile.is_open()) {
         for (int i = 0; i < repeats; i++) {
-            genetic.solveGeneticTest(timeLimit,crossFactor, mutationFactor, startPopulationCount, interval, MyFile );
+            genetic.solveGeneticTest(timeLimit,crossFactor, mutationFactor, startPopulationCount, useScramble, interval, MyFile );
             cout << "Dla Genetic test " << i + 1 << " zakonczyl sie" << endl;
         }
         MyFile.close();
@@ -36,16 +36,18 @@ void testGenetic(int repeats, string filename, string tesFileName, int timeLimit
 
 int main()
 {
+    /*
     Menu m = Menu();
     m.printStartMenu();
-
+    */
 
     /*
     string plikWynik, plikDane;
-    int repeats, timeLimit, interval;
+    int repeats, timeLimit, interval, mutacja;
     int startPopulation = 100000;
     double mutationFactor = 0.01;
     double crossFactor = 0.8;
+    bool useScramble=false;
     cout << "Podaj nazwe pliku docelowego: ";
     cin >> plikWynik;
 
@@ -62,7 +64,7 @@ int main()
     cout << endl << "Powtorzen: ";
     cin >> repeats;
 
-    testGenetic(repeats, plikWynik, plikDane, timeLimit, interval, crossFactor, mutationFactor, startPopulation);
+    testGenetic(repeats, plikWynik, plikDane, timeLimit, interval, crossFactor, mutationFactor, startPopulation,  );
     */
 }
 

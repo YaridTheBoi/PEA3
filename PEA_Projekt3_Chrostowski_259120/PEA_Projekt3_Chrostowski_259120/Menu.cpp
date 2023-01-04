@@ -17,8 +17,10 @@ void Menu::printStartMenu()
     cout << "4. Wprowadz wspolczynnik krzyzowania" << endl;
     cout << "5. Wprowadz wspolczynnik mutacji" << endl;
     cout << "6. Wprowadz wielkosc populacji poczatkowej" << endl;
-    cout << "7. Algorytm Generyczny" << endl;
-    cout << "8. Wyjdz" << endl;
+    cout << "7. Uzyj scramble mutation" << endl;
+    cout << "8. Uzyj inverse mutation" << endl;
+    cout << "9. Algorytm Generyczny" << endl;
+    cout << "10. Wyjdz" << endl;
     getInput();
 }
 
@@ -137,12 +139,28 @@ void Menu::getInput()
         }
         printStartMenu();
         break;
+
+
     case 7:
-        genetic = Genetic(city);
-        genetic.solveGenetic(limitTime, crossFactor, mutationFactor, startPopulationCount);
+        useScramble = true;
+        cout << endl << "Wybrano scramble mutation" << endl;
         printStartMenu();
         break;
+
+
     case 8:
+        useScramble = false;
+        cout << endl << "Wybrano inverse mutation" << endl;
+        printStartMenu();
+        break;
+
+
+    case 9:
+        genetic = Genetic(city);
+        genetic.solveGenetic(limitTime, crossFactor, mutationFactor, startPopulationCount, useScramble);
+        printStartMenu();
+        break;
+    case 10:
         clearMenu();
         cout << "Do widzenia" << endl;
         cin.get();

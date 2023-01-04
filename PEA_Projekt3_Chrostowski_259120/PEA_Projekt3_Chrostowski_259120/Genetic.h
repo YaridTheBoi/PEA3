@@ -14,8 +14,10 @@ public:
 
 	void scrambleMutation(vector<int>&, int);
 
-	void solveGenetic(double, double, double, int);
+	void inverseMutation(vector<int>&);
 
-	void solveGeneticTest(double, double, double, int, int, ofstream&);
+	void solveGenetic(double, double, double, int, bool);
+
+	void solveGeneticTest(double, double, double, int, bool, int ,ofstream&);
 
 };
