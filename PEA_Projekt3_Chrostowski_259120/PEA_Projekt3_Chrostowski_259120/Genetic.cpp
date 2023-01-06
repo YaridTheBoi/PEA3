@@ -177,7 +177,7 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 
 
 		//przemieszaj dzieci zeby przy usuwaniu ich losowe ginely to chyba bardzo spowalnia
-		random_shuffle(offsprings.begin(), offsprings.end());
+		//random_shuffle(offsprings.begin(), offsprings.end());
 
 		//skasuj tyle dzieci zeby bylo ze ktores sie nie urodzily
 		offsprings.resize((int)(offsprings.size() * crossFactor));
@@ -268,27 +268,45 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 	timer.startCounter();
 	while ((timer.getCounter() < timeLimit * 1000)) {
 
-		if ((int)(timer.getCounter() / 1000) % (interval) == 0) {
+		if ((int)(timer.getCounter() / 1000) >timeStamp) {
+
+			timeStamp = timeStamp + interval;
+			cout << timeStamp << endl;
+			file << calculatePathLength(population[0]) << "\t";
+
+
 
 			//pobierz probke co interwal
-			if (timeStamp != (int)(timer.getCounter() / (1000)) && (int)(timer.getCounter() / (1000)) % interval == 0 && (int)(timer.getCounter() / (1000)) != timeLimit) {
+			/*
+			if (timeStamp != (int)(timer.getCounter() / (1000)) && (int)(timer.getCounter() / (1000)) % interval ==0 && (int)(timer.getCounter() / (1000)) != timeLimit) {
 				timeStamp = (int)(timer.getCounter() / (1000));
+				cout << timeStamp << endl;
 				file << calculatePathLength(population[0]) << "\t";
 			}
+			*/
 		}
 
 		//czyscimy dzieci z poprzedniej iteracji
 		offsprings.clear();
 
+		if (startPopulationCount % 2 == 0) {
+			offsprings.resize(startPopulationCount);
+		}
+		else {
+			offsprings.resize(startPopulationCount+2);
+		}
+		
 		for (int i = 0; i < startPopulationCount - 1; i = i + 2) {
 
 			//rozmnazamy i dodajemy dzieci do zbioru dzieci
-			offsprings.push_back(orderCrossover(population[i], population[i + 1]));
-			offsprings.push_back(orderCrossover(population[i + 1], population[i]));
+			offsprings[i] = orderCrossover(population[i], population[i + 1]);
+			offsprings[i + 1] = orderCrossover(population[i + 1], population[i]);
+			//offsprings.push_back(orderCrossover(population[i], population[i + 1]));
+			//offsprings.push_back(orderCrossover(population[i + 1], population[i]));
 		}
 
 		if (startPopulationCount % 2 != 0) {
-
+			
 			//jezeli jest nieparzysta populacja to najgorszego skrzyzuj z przedostatnim
 			offsprings.push_back(orderCrossover(population[startPopulationCount - 1], population[startPopulationCount - 2]));
 			offsprings.push_back(orderCrossover(population[startPopulationCount - 2], population[startPopulationCount - 1]));
@@ -310,14 +328,14 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 
 
 		//przemieszaj dzieci zeby przy usuwaniu ich losowe ginely
-		random_shuffle(offsprings.begin(), offsprings.end());
+		//random_shuffle(offsprings.begin(), offsprings.end());
 
 		//skasuj tyle dzieci zeby bylo ze ktores sie nie urodzily
 		offsprings.resize((int)(offsprings.size() * crossFactor));
 
-
+		population.resize(startPopulationCount + offsprings.size());
 		for (int i = 0; i < offsprings.size(); i++) {
-			population.push_back(offsprings[i]);
+			population[startPopulationCount + i] = offsprings[i];
 		}
 
 

@@ -41,13 +41,18 @@ int main()
     m.printStartMenu();
     */
 
-    /*
+
+    //testGenetic(10, "test", "data34.txt", 60, 10, 0.8, 0.01, 10, true);
+
+
+    
+    
     string plikWynik, plikDane;
     int repeats, timeLimit, interval, mutacja;
     int startPopulation = 100000;
     double mutationFactor = 0.01;
     double crossFactor = 0.8;
-    bool useScramble=false;
+    bool useScramble=true;
     cout << "Podaj nazwe pliku docelowego: ";
     cin >> plikWynik;
 
@@ -64,7 +69,7 @@ int main()
     cout << endl << "Powtorzen: ";
     cin >> repeats;
 
-    testGenetic(repeats, plikWynik, plikDane, timeLimit, interval, crossFactor, mutationFactor, startPopulation,  );
-    */
+    testGenetic(repeats, plikWynik, plikDane, timeLimit, interval, crossFactor, mutationFactor, startPopulation, useScramble);
+    
 }
 
