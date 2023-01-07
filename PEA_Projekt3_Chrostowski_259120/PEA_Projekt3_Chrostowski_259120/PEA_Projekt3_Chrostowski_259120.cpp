@@ -41,12 +41,12 @@ int main()
     m.printStartMenu();
     */
 
-
-    //testGenetic(10, "test", "data34.txt", 60, 10, 0.8, 0.01, 10, true);
-
-
+    
+    testGenetic(5, "test53Inverse", "data53.txt", 60, 10, 0.8, 0.01, 10000, false);
+    testGenetic(5, "test53Scramble", "data53.txt", 60, 10, 0.8, 0.01, 10000, true);
     
     
+    /*
     string plikWynik, plikDane;
     int repeats, timeLimit, interval, mutacja;
     int startPopulation = 100000;
@@ -70,6 +70,6 @@ int main()
     cin >> repeats;
 
     testGenetic(repeats, plikWynik, plikDane, timeLimit, interval, crossFactor, mutationFactor, startPopulation, useScramble);
-    
+    */
 }
 
