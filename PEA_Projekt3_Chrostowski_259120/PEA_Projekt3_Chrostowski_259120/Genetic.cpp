@@ -312,7 +312,7 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 		//offsprings.clear();
 
 
-
+		//lacz osobniki (najlepsze osobniki ze soba, najslabsze ze soba)
 		for (int i = 0; i < startPopulationCount - 1; i = i + 2) {
 
 			//rozmnazamy i dodajemy dzieci do zbioru dzieci
