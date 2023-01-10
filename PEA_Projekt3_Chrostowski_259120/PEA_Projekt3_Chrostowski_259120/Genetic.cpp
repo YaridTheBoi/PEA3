@@ -271,15 +271,27 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 
 	vector<vector<int>> offsprings;
 
-
+	/*
+	* //to jest wersja dla doboru od góry
 	if (startPopulationCount % 2 == 0) {
 		offsprings.resize(startPopulationCount);
 	}
 	else {
 		offsprings.resize(startPopulationCount + 2);
 	}
+	*/
 
+	//to jest wersja dla turniejowego
+
+	offsprings.resize(int(startPopulationCount * crossFactor));
 	int offspringsSize = offsprings.size();
+
+
+	int firstParentIndex, secondParentIndex;
+	int firstCompetitor, secondCompetitor;
+	 
+	vector<int> firstChild, secondChild;
+
 
 	// okresla w jakiej probce juz pobralismy pomiar(kilka iteracji moglo dac tkai sam czas przez zaokraglenia)
 	int timeStamp = 0;
@@ -289,29 +301,22 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 
 	Timer timer = Timer();	//do sprawdzania czy minal czas w ktorym mozna sobie operowac
 	timer.startCounter();
+	//cout << "wchodze do petli" << endl;
+	
 	while ((timer.getCounter() < timeLimit * 1000)) {
-
+		random_device dev;
+		mt19937 rng(dev());
+		uniform_int_distribution<mt19937::result_type> dist(0, startPopulationCount-1);
 		if ((int)(timer.getCounter() / 1000) >timeStamp) {
 
 			timeStamp = timeStamp + interval;
 			cout << timeStamp << endl;
 			file << calculatePathLength(population[0]) << "\t";
 
-			//pobierz probke co interwal
-			/*
-			if (timeStamp != (int)(timer.getCounter() / (1000)) && (int)(timer.getCounter() / (1000)) % interval ==0 && (int)(timer.getCounter() / (1000)) != timeLimit) {
-				timeStamp = (int)(timer.getCounter() / (1000));
-				cout << timeStamp << endl;
-				file << calculatePathLength(population[0]) << "\t";
-			}
-			*/
+
 		}
 
-
-		//czyscimy dzieci z poprzedniej iteracji
-		//offsprings.clear();
-
-
+		/*
 		//lacz osobniki (najlepsze osobniki ze soba, najslabsze ze soba)
 		for (int i = 0; i < startPopulationCount - 1; i = i + 2) {
 
@@ -328,8 +333,57 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 			offsprings[offspringsSize - 1] = (orderCrossover(population[startPopulationCount - 1], population[startPopulationCount - 2]));
 			offsprings[offspringsSize - 2] = (orderCrossover(population[startPopulationCount - 2], population[startPopulationCount - 1]));
 		}
+		*/
+		for (int i = 0; i < offspringsSize; i=i+2) {
+			
+			//firstCompetitor = rand() % startPopulationCount;
+			firstCompetitor = dist(rng);
+			do {
+				//secondCompetitor = rand() % startPopulationCount;
+				secondCompetitor = dist(rng);
+			} while (secondCompetitor == firstCompetitor);
+
+			if (calculatePathLength(population[firstCompetitor]) < calculatePathLength(population[secondCompetitor])) {
+				firstParentIndex = firstCompetitor;
+			}
+			else {
+				firstParentIndex = secondCompetitor;
+			}
 
 
+			//firstCompetitor = rand() % startPopulationCount;
+			firstCompetitor = dist(rng);
+			do {
+				//secondCompetitor = rand() % startPopulationCount;
+				secondCompetitor = dist(rng);
+			} while (secondCompetitor == firstCompetitor);
+
+			if (calculatePathLength(population[firstCompetitor]) < calculatePathLength(population[secondCompetitor])) {
+				secondParentIndex = firstCompetitor;
+			}
+			else {
+				secondParentIndex = secondCompetitor;
+			}
+
+
+			//cout << dist(rng)<<" " << dist(rng) << endl;
+
+			firstChild = orderCrossover(population[firstParentIndex], population[secondParentIndex]);
+			secondChild= orderCrossover(population[secondParentIndex], population[firstParentIndex]);
+
+			offsprings[i] = firstChild;
+			offsprings[i + 1] = secondChild;
+
+			/*
+			if (calculatePathLength(firstChild) > calculatePathLength(secondChild)) {
+				offsprings[i] = firstChild;
+			}
+			else {
+				offsprings[i] = secondChild;
+			}
+			*/
+			
+		}
 
 
 		//mutacje na dzieci
@@ -351,8 +405,17 @@ void Genetic::solveGeneticTest(double timeLimit, double crossFactor, double muta
 		//skasuj tyle dzieci zeby bylo ze ktores sie nie urodzily
 		//offsprings.resize((int)(offspringsSize * crossFactor));
 
+		/*
+		//wersja do doboru od goryu
 		population.resize(startPopulationCount + (int)(offspringsSize * crossFactor));
 		for (int i = 0; i < (int)(offspringsSize * crossFactor); i++) {
+			population[startPopulationCount + i] = offsprings[i];
+		}
+		*/
+
+		population.resize(startPopulationCount + offspringsSize);
+		//wersja do turnieju
+		for (int i = 0; i < offspringsSize; i++) {
 			population[startPopulationCount + i] = offsprings[i];
 		}
 

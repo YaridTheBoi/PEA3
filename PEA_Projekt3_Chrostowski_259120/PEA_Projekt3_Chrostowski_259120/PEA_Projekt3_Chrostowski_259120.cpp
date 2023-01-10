@@ -36,20 +36,20 @@ void testGenetic(int repeats, string filename, string tesFileName, int timeLimit
 
 int main()
 {
-    /*
-    Menu m = Menu();
-    m.printStartMenu();
-    */
+    
+    //Menu m = Menu();
+    //m.printStartMenu();
+    
 
    
-    testGenetic(10, "test171Inverse1k", "data171.txt", 120, 10, 0.8, 0.01, 1000, false);
-    testGenetic(10, "test171Scramble1k", "data171.txt", 120, 10, 0.8, 0.01, 1000, true);
+    testGenetic(10, "test171Inverse1kTurniej", "data171.txt", 120, 10, 0.8, 0.01, 1000, false);
+    //testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, true);
     
-    testGenetic(10, "test171Inverse10k", "data171.txt", 120, 10, 0.8, 0.01, 10000, false);
-    testGenetic(10, "test171Scramble10k", "data171.txt", 120, 10, 0.8, 0.01, 10000, true);
+    //testGenetic(10, "test53Inverse10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, false);
+    //testGenetic(10, "test53Scramble10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, true);
 
-    testGenetic(10, "test171Inverse100k", "data171.txt", 120, 10, 0.8, 0.01, 100000, false);
-    testGenetic(10, "test171Scramble100k", "data171.txt", 120, 10, 0.8, 0.01, 100000, true);
+    //testGenetic(10, "test53Inverse100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, false);
+    //testGenetic(10, "test53Scramble100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, true);
 
 
     /*

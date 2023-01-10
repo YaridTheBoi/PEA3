@@ -152,6 +152,7 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="data17.txt" />
     <Text Include="data171.txt" />
     <Text Include="data34.txt" />
     <Text Include="data5.txt" />

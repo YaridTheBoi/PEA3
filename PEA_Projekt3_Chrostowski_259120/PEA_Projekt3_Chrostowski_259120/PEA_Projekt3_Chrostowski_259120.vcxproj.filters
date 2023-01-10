@@ -61,5 +61,8 @@
     <Text Include="data171.txt">
       <Filter>Pliki źródłowe</Filter>
     </Text>
+    <Text Include="data17.txt">
+      <Filter>Pliki źródłowe</Filter>
+    </Text>
   </ItemGroup>
 </Project>
