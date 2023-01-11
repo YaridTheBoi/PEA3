@@ -36,21 +36,21 @@ void testGenetic(int repeats, string filename, string tesFileName, int timeLimit
 
 int main()
 {
-    
-    //Menu m = Menu();
-    //m.printStartMenu();
-    
-
+    /*
+    Menu m = Menu();
+    m.printStartMenu();
+    */
+    //testGenetic(1, "test17", "data17.txt", 120, 10, 0.8, 0.01, 100000, true);
    
-    testGenetic(2, "test171Inverse100kTurniejxD", "data171.txt", 120, 10, 0.8, 0.01, 100000, false);
-    //testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, true);
+    testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, false);
+    testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, true);
     
-    //testGenetic(10, "test53Inverse10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, false);
-    //testGenetic(10, "test53Scramble10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, true);
+    testGenetic(10, "test53Inverse10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, false);
+    testGenetic(10, "test53Scramble10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, true);
 
-    //testGenetic(10, "test53Inverse100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, false);
-    //testGenetic(10, "test53Scramble100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, true);
-
+    testGenetic(10, "test53Inverse100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, false);
+    testGenetic(10, "test53Scramble100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, true);
+    
 
     /*
     string plikWynik, plikDane;

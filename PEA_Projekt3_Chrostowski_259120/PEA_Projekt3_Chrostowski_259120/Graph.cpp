@@ -114,35 +114,17 @@ void Graph::scaleForRead(int amountOfCities)
 
 }
 
-void Graph::generateRandomGraph(int citiesAmount)
-{
-	srand(time(0));
-	this->size = citiesAmount;
-	this->grid.resize(citiesAmount, vector<int>(citiesAmount));
-	for (int i = 0; i < citiesAmount; i++) {
-		for (int j = 0; j < citiesAmount; j++) {
-			if (i == j) {
-				this->grid[i][j] = 0;
-			}
-			else {
-				this->grid[i][j] = 1 + rand() % 20;
-			}
-		}
-	}
-}
 
 int Graph::calculatePathLength(vector<int> path)
 {
 	int sum = 0;
 	for (int i = 0; i < path.size() - 1; i++) {
+
+		
 		sum += this->grid[path.at(i)][path.at(i + 1)];
+		
+		
 	}
 	return sum;
 }
 
-void Graph::makeNeighbour(vector<int>& path, int swapStart, int swapEnd)
-{
-	int swapper = path.at(swapStart);
-	path.at(swapStart) = path.at(swapEnd);
-	path.at(swapEnd) = swapper;
-}

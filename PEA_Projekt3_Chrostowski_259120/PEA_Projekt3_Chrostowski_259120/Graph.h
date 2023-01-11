@@ -37,11 +37,6 @@ public:
 	bool readLineFromFile(ifstream&, vector<int>&, int);
 
 
-
-
-	void makeNeighbour(vector<int>&, int, int);
-
-
 	/// <summary>
 	/// Drukuje graf
 	/// </summary>
@@ -56,11 +51,6 @@ public:
 
 
 
-	/// <summary>
-	/// generuje losowy graf o zadanym rozmiarze(dlugosci tras <1, 20>)
-	/// </summary>
-	/// <param name="citiesAmount">Ilosc miast ktore maja sie znajdowac w grafie</param>
-	void generateRandomGraph(int);
 
 
 	/// <summary>
