@@ -42,7 +42,7 @@ int main()
     
 
    
-    testGenetic(10, "test171Inverse1kTurniej", "data171.txt", 120, 10, 0.8, 0.01, 1000, false);
+    testGenetic(2, "test171Inverse100kTurniejxD", "data171.txt", 120, 10, 0.8, 0.01, 100000, false);
     //testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, true);
     
     //testGenetic(10, "test53Inverse10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, false);
