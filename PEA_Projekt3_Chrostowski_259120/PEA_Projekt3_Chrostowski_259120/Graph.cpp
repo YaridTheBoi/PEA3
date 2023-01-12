@@ -125,6 +125,8 @@ int Graph::calculatePathLength(vector<int> path)
 		
 		
 	}
+
+	sum += this->grid[path.at(path.size()-1)][path.at(0)];
 	return sum;
 }
 

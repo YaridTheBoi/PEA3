@@ -37,11 +37,20 @@ void testGenetic(int repeats, string filename, string tesFileName, int timeLimit
 int main()
 {
     /*
+    //2-13-12-10-9-1-11-0-16-7-8-6-14-5-15-4-3-2   25
+    Graph g = Graph();
+    g.readFromFile("data17.txt");
+    vector<int> test = { 2 , 13 , 12 , 10 , 9 , 1 , 11 , 0 , 16 , 7 , 8 , 6 , 14 , 5 , 15 , 4 , 3};
+    cout << g.calculatePathLength(test) << endl;
+    */
+
+    
     Menu m = Menu();
     m.printStartMenu();
-    */
+    
     //testGenetic(1, "test17", "data17.txt", 120, 10, 0.8, 0.01, 100000, true);
    
+    /*
     testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, false);
     testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, true);
     
@@ -50,7 +59,7 @@ int main()
 
     testGenetic(10, "test53Inverse100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, false);
     testGenetic(10, "test53Scramble100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, true);
-    
+    */
 
     /*
     string plikWynik, plikDane;

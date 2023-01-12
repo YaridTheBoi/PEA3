@@ -370,7 +370,6 @@ void Genetic::solveGenetic(double timeLimit, double crossFactor, double mutation
 
 			
 			if ( (float)(chance(rng))/INT_MAX  < mutationFactor) {
-				cout << "Jestem" << endl;
 				if (useScramble) {
 					scrambleMutation(firstChild, rand() % firstChild.size());
 					scrambleMutation(secondChild, rand() % secondChild.size());
