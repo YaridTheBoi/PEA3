@@ -44,22 +44,22 @@ int main()
     cout << g.calculatePathLength(test) << endl;
     */
 
-    
+    /*
     Menu m = Menu();
     m.printStartMenu();
-    
+    */
     //testGenetic(1, "test17", "data17.txt", 120, 10, 0.8, 0.01, 100000, true);
    
-    /*
-    testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, false);
-    testGenetic(10, "test53Inverse1kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 1000, true);
     
-    testGenetic(10, "test53Inverse10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, false);
-    testGenetic(10, "test53Scramble10kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 10000, true);
+    testGenetic(10, "test171Inverse100Turniej", "data171.txt", 120, 10, 0.8, 0.01, 100, false);
+    testGenetic(10, "test171Scramble100Turniej", "data171.txt", 120, 10, 0.8, 0.01, 100, true);
+    
+    testGenetic(10, "test171Inverse500Turniej", "data171.txt", 120, 10, 0.8, 0.01, 500, false);
+    testGenetic(10, "test171Scramble500Turniej", "data171.txt", 120, 10, 0.8, 0.01, 500, true);
 
-    testGenetic(10, "test53Inverse100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, false);
-    testGenetic(10, "test53Scramble100kTurniej", "data53.txt", 120, 10, 0.8, 0.01, 100000, true);
-    */
+    testGenetic(10, "test171Inverse1000Turniej", "data171.txt", 120, 10, 0.8, 0.01, 1000, false);
+    testGenetic(10, "test171Scramble1000Turniej", "data171.txt", 120, 10, 0.8, 0.01, 1000, true);
+    
 
     /*
     string plikWynik, plikDane;
